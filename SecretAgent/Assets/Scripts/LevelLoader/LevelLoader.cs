@@ -24,4 +24,19 @@ public class LevelLoader : MonoBehaviour
         // Load new Scene
         SceneManager.LoadScene(level);
     }
+
+    public void QuitGame()
+    {
+        StartCoroutine(WaitAndQuit(1f));
+    }
+
+    IEnumerator WaitAndQuit(float second)
+    {
+        yield return new WaitForSeconds(second);
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
+    }
 }
